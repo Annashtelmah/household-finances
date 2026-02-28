@@ -1,0 +1,161 @@
+<div class="content container px-5 mb-5" id="page-content-wrapper">
+  <header class="offset-y"></header>
+  <div class="fw-medium px-2 mx-1 pb-4 mb-2">
+    <h1 class="fs-1 fw-medium mb-0 text-color-title">Доходы и расходы</h1>
+  </div>
+  <div class="row py-2 px-2 mx-1">
+    <div class="d-flex align-items-center px-0">
+      <button
+        id="btn-create-income"
+        type="button"
+        class="btn btn-lg btn-success fs-14"
+      >
+        Создать доход
+      </button>
+      <button
+        id="btn-create-expences"
+        type="button"
+        class="btn btn-lg btn-danger ms-2 fs-14"
+        id="cancel"
+      >
+        Создать расход
+      </button>
+    </div>
+  </div>
+  <div
+    class="buttons-filter d-flex align-items-center flex-wrap gap-3 px-2 mx-1 py-4 my-2"
+  >
+    <button class="btn btn-secondary px-2 fw-medium" type="button">
+      Сегодня
+    </button>
+    <button class="btn btn-outline-secondary px-2 fw-medium" type="button">
+      Неделя
+    </button>
+    <button class="btn btn-outline-secondary px-2 fw-medium" type="button">
+      Месяц
+    </button>
+    <button class="btn btn-outline-secondary px-2 fw-medium" type="button">
+      Год
+    </button>
+    <button class="btn btn-outline-secondary px-2 fw-medium" type="button">
+      все
+    </button>
+    <button class="btn btn-outline-secondary px-2 fw-medium" type="button">
+      Интервал
+    </button>
+
+    <div class="d-flex align-items-center">
+      <label class="fw-medium text-black" for="dateInputFrom">с</label>
+      <input
+        type="text"
+        style="outline: none"
+        id="dateInputFrom"
+        class="px-1 py-1 text-center text-secondary fw-medium text-decoration-underline border-0 form-control datepicker-input dynamic-width-input"
+        placeholder="Дата"
+      />
+      <label class="fw-medium ms-2 text-black" for="dateInputTo">по</label>
+      <input
+        type="text"
+        style="outline: none"
+        id="dateInputTo"
+        class="px-1 py-1 text-center text-secondary fw-medium text-decoration-underline border-0 form-control datepicker-input dynamic-width-input"
+        placeholder="Дата"
+      />
+    </div>
+  </div>
+  <div class="table-responsive py-2 px-2 mx-1">
+    <table class="table table-hover border-top text-center">
+      <thead>
+        <tr class="">
+          <th scope="col">№ операции</th>
+          <th scope="col">Тип</th>
+          <th scope="col">Категория</th>
+          <th scope="col">Сумма</th>
+          <th scope="col">Дата</th>
+          <th scope="col">Комментарий</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="">
+          <td>1</td>
+          <td class="text-success">Доход</td>
+          <td>Зарплата</td>
+          <td>500$</td>
+          <td>01.02.2025</td>
+          <td></td>
+          <td class="table-col-event pe-0">
+            <a
+              class="table-btn-ico"
+              href="javasctipt:void(0);"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              <i class="bi bi-trash me-2"></i>
+            </a>
+            <a href="#/operations/edit" class="table-btn-ico">
+              <i class="bi bi-pencil"></i
+            ></a>
+          </td>
+        </tr>
+        <tr class="">
+          <td>2</td>
+          <td class="text-danger">Расход</td>
+          <td>жилье</td>
+          <td>2500$</td>
+          <td>25.02.2025</td>
+          <td></td>
+          <td class="table-col-event pe-0">
+            <a
+              class="table-btn-ico"
+              href="javasctipt:void(0);"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              <i class="bi bi-trash me-2"></i>
+            </a>
+            <a href="#/operations/edit" class="table-btn-ico">
+              <i class="bi bi-pencil"></i
+            ></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="offset-y"></div>
+</div>
+
+<!-- Модальное окно -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="h-100 d-flex justify-content-center align-items-center">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body px-4 pt-4 pb-1 m-3">
+          Вы действительно хотите удалить операцию?
+        </div>
+        <div
+          class="modal-footer justify-content-center gap-2 pt-0 mx-3 px-4 mb-3 pb-4 border-0"
+        >
+          <button type="button" class="btn btn-lg btn-success rounded-2 fs-14">
+            Да, удалить
+          </button>
+          <button
+            type="button"
+            class="btn btn-lg btn-danger rounded-2 fs-14"
+            data-bs-dismiss="modal"
+          >
+            Не удалять
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

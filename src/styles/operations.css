@@ -1,0 +1,33 @@
+
+.container .table-responsive th{
+ color:  #052C65 ;
+ vertical-align: middle;
+}
+.container .table-responsive th:first-child{
+width: 10%;
+}
+
+.table-col-event{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+a.table-btn-ico{
+text-decoration: none;
+color: black;
+}
+
+ .form-select::-ms-expand{
+      display: none;
+    }
+    
+    .form-select-appearance-none{
+      appearance: none;
+      background-image: none !important;
+      padding-right: 1rem !important; 
+    }
+
+    
+
+    

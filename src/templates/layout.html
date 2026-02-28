@@ -1,0 +1,126 @@
+<div class="d-flex" id="wrapper">
+  <div
+    class="position-absolute d-flex align-items-center top-0 start-0 ps-2 pt-1"
+  >
+    <button
+      id="toggle"
+      class="burger btn btn-outline-primary btn-lg"
+      type="button"
+      aria-label="Переключатель навигации"
+    >
+      <i class="bi bi-list"></i>
+    </button>
+    <a href="javascript:void(0);" class="d-block ms-5 pt-2">
+      <img src="/images/logo.png" alt="Логотип" />
+    </a>
+  </div>
+
+  <div
+    class="sidebar sticky-top d-flex flex-column flex-shrink-0 bg-white border-1 border-end border-black-50 fs-14 h-100 vh-100"
+    id="sidebar"
+  >
+    <div
+      class="position-relative sidebar-logo p-3 text-center border-1 border-bottom border-black-50 w-100"
+    >
+      <a href="javascript:void(0);" class="d-block mt-1 pt-3">
+        <img src="/images/logo.png" alt="Логотип" />
+      </a>
+      <div id="close" class="position-absolute end-0 top-0 p-3">
+        <button
+          id="close-btn"
+          class="burger btn btn-outline-primary btn-sm"
+          type="button"
+        >
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    </div>
+    <div
+      class="sidebar-menu m-1 p-3 d-flex flex-column justify-content-between flex-grow-1"
+    >
+      <ul class="list-unstyled mt-4 pt-3">
+        <li>
+          <a
+            id="main-link"
+            href="#/"
+            class="menu-item w-100 px-3 py12 d-flex align-items-center rounded-2 text-decoration-none"
+          >
+            <i class="bi bi-house me-2"></i>
+            <span>Главная</span>
+          </a>
+        </li>
+        <li class=" ">
+          <a
+            id="finance-link"
+            href="#/operations"
+            class="menu-item w-100 px-3 py12 d-flex align-items-center text-primary-emphasis rounded-2 text-white text-decoration-none"
+          >
+            <i class="bi bi-cash-coin me-2"></i>
+            <span class="text-nowrap">Доходы & Расходы</span>
+          </a>
+        </li>
+        <li class="rounded-2" id="link-collapse">
+          <a
+            id="categories-link"
+            class="menu-item w-100 d-flex align-items-center justify-content-between px-3 py12 rounded-top-2 text-primary-emphasis text-decoration-none"
+            data-bs-toggle="collapse"
+            href="#collapseExample"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample"
+          >
+            <span class="text-nowrap">Категории</span>
+            <i class="bi bi-chevron-right rotate"></i>
+          </a>
+
+          <div class=" rounded-bottom-2 collapse" id="collapseExample">
+            <ul class="list-unstyled">
+              <li>
+                <a
+                  id="income-link"
+                  href="#/income"
+                  class="menu-item d-flex align-items-center px-3 py12 w-100 border-primary text-decoration-none"
+                >
+                  Доходы
+                </a>
+              </li>
+              <li>
+                <a
+                  id="expenses-link"
+                  href="#/expenses"
+                  class="rounded-bottom-2 menu-item d-flex align-items-center px-3 py12 w-100 text-decoration-none"
+                >
+                  Расходы
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+
+      <div class="text-primary-emphasis fw-medium">
+        Баланс: <span id="balans" class="ms-2 text-primary">500$</span>
+      </div>
+    </div>
+
+    <div
+      class="sidebar-footer px-3 pt-3 pb-3 mb-3 d-flex align-items-center text-center border-1 border-top border-black-50 w-100"
+    >
+      <div class="position-relative">
+        <a href="javascript:void(0);" class="p-1" id="closeLink">
+          <img src="images/user-icon.png" alt="user" />
+        </a>
+        <ul
+          id="closeMenu"
+          class="position-absolute list-unstyled bg-white  bottom-100 start-0 py-1 px-3 mt-1"
+        >
+          <li><a  id="exit" class="text-decoration-none fs-4" href="#/login">Выйти</a></li>
+        </ul>
+      </div>
+
+      <span id="Usen-name" class="ms-2">Иван Иванов</span>
+    </div>
+  </div>
+
+  <div id="content-layout" class="flex-grow-1"></div>
+</div>

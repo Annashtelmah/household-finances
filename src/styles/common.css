@@ -1,0 +1,172 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+h1{
+  color: #052C65 !important;
+}
+.sidebar {
+  min-width: 219px;
+  box-sizing: border-box;
+}
+.fs-14 {
+  font-size: 14px;
+}
+
+.fs-12 {
+  font-size: 12px;
+}
+
+.fs-15{
+  font-size: 15px;
+}
+
+
+
+.py12 {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.container .buttons-filter .btn {
+  width: 100px;
+  height: 37px;
+  box-sizing: border-box;
+}
+
+#dateInputFrom {
+  width: 63px;
+  border: none !important;
+}
+
+#dateInputTo {
+  width: 63px;
+  border: none !important;
+}
+
+#dateInputTo:focus,
+#dateInputFrom:focus,
+#dateInputTo.active,
+#dateInputFrom.active,
+form input:focus, form select:focus  {
+  box-shadow: none !important;
+  outline: none !important;
+}
+.container form input::placeholder{
+  color: #6C757D;
+}
+
+.rotate {
+  transition: transform 0.3s ease-in-out;
+}
+
+.rotated {
+  transform: rotate(90deg);
+}
+
+.sidebar {
+  display: flex !important;
+}
+
+.burger {
+  display: none;
+}
+#sidebar.sidebarVisible {
+  display: flex !important;
+}
+
+#close {
+  display: none;
+}
+
+#closeMenu {
+  display: none;
+  border: 1px solid rgb(13, 110, 253);
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#closeMenu:hover li {
+  text-decoration: underline;
+}
+
+.offset-y {
+  height: 100px;
+}
+
+#closeLink:focus + ul,
+#closeLink.active + ul {
+  display: block;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+#closeMenu:hover{
+ display: block;
+}
+
+.modal {
+background: rgba(0, 0, 0, 0.45);
+}
+
+
+.modal-content{
+  color: #290661;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1;
+  text-align: center;
+  box-sizing: border-box;
+width: 530px;
+background: #FFFFFF;
+border: 1px solid #CED4DA;
+border-radius: 12px;
+}
+  
+
+.form-login, .form-singUp {
+  width: 397px;
+}
+
+
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    display: none !important;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+  }
+  .burger {
+    display: block;
+  }
+
+  #close {
+    display: block;
+  }
+
+  .modal-content{
+    width: 300px;
+    font-size: 14px;
+  }
+
+  .form-login, .form-singUp {
+  width: 100%;
+}
+}
+
+@media (max-width: 768px) {
+
+}

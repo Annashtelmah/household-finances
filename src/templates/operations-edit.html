@@ -1,0 +1,84 @@
+<div class="content container px-5 mb-5" id="page-content-wrapper">
+  <header class="offset-y"></header>
+  <div class="fw-medium px-2 mx-1 pb-3 mb-1">
+    <h1 class="fs-1 fw-medium mb-0">Редактирование дохода/расхода</h1>
+  </div>
+  <form class="container px-2 mx-1 pt-3 mt-1">
+    <div class="row">
+      <div class="col-12 col-lg-6 col-xl-5">
+        <select
+          id="inputType"
+          name="inputType"
+          class="form-select form-control form-select-appearance-none mb-2 px-3 fs-15"
+          aria-label="Выбор типа"
+        >
+          <!-- <option class="placeholder" value="" disabled selected hidden>Тип...</option> -->
+          <option value="income">Доход</option>
+          <option value="expense">Расход</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-6 col-xl-5">
+        <select
+          id="inputCategory"
+          name="inputCaregory"
+          class="form-select form-control form-select-appearance-none mb-2 px-3 fs-15"
+          aria-label="Выбор категории"
+        ></select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-6 col-xl-5">
+        <input
+          type="text"
+          class="form-number form-control mb-2 px-3 fs-15"
+          id="summa"
+          placeholder="Сумма в $..."
+        />
+        <div id="summa-error" class="error invalid-feedback">Введите сумму в $ (только число)</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-lg-6 col-xl-5">
+        <input
+          type="text"
+          class="form-control mb-2 px-3 fs-15"
+          id="dateInput"
+          placeholder="Дата..."
+        />
+        <div id="dateInput-error" class="error invalid-feedback">
+          Введите дату
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-lg-6 col-xl-5">
+        <input
+          type="text"
+          class="form-control mb-0 px-3 fs-15"
+          id="comment"
+          placeholder="Комментарий..."
+        />
+      </div>
+    </div>
+
+    <div class="row pt-3 mt-1">
+      <div class="d-flex mb-1 align-items-center">
+        <button type="button" class="btn btn-lg btn-success fs-14" id="save">
+          Сохранить
+        </button>
+        <button
+          type="button"
+          class="btn btn-lg btn-danger ms-2 fs-14"
+          id="cancel"
+        >
+          Отмена
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="offset-y"></div>
+</div>

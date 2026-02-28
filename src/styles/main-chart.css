@@ -1,0 +1,70 @@
+
+
+
+
+.chart1_container::before {
+  content: "Доходы";
+  font-size: 28px;
+  font-weight: 500;
+  position: absolute;
+  left: 0;
+  top: -50px;
+  width: 100%;
+  text-align: center;
+  color: black;
+}
+
+.chart2_container::before {
+  content: "Расходы";
+  font-size: 28px;
+  font-weight: 500;
+  position: absolute;
+  left: 0;
+  top: -50px;
+  width: 100%;
+  text-align: center;
+  color: black;
+}
+
+.chart1_container,
+.chart2_container {
+  width: 437px;
+}
+/* 
+.data {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  outline: none;
+  box-shadow: none;
+  appearance: none;
+  width: 110px;
+
+  color: #6c757d;
+} */
+
+#dateInputFrom {
+  width: 63px;
+  border: none !important;
+}
+
+#dateInputTo {
+  width: 63px;
+  border: none !important;
+}
+
+#dateInputTo:focus,
+#dateInputFrom:focus,
+#dateInputTo.active,
+#dateInputFrom.active {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+
+@media (max-width: 1024px) {
+.chart1_container,
+.chart2_container {
+  max-width: 300px;
+}
+}
