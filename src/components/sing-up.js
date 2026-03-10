@@ -1,13 +1,13 @@
-//import { AuthService } from "../../services/auth-service.js";
-//import { AuthUtils } from "../../utils/auth-utils.js";
+import { AuthService } from "../services/auth-service.js";
+import { AuthUtils } from "../utils/auth-utils.js";
 import { ValidationUtils } from "../utils/validation-utils.js";
 
 export class SingUp {
   constructor() {
-  
-    // if (AuthUtils.getAuthInfo(AuthUtils.accessTokenKey)) {
-    //   return this.openNewRoute("/");
-    // }
+    if (AuthUtils.getAuthInfo(AuthUtils.accessTokenKey)) {
+      window.location.href = "#/";
+      return;
+    }
     this.findElements();
     this.validation = [
       { element: this.nameElement },
@@ -52,33 +52,22 @@ export class SingUp {
         this.validation[i].options.compareTo = this.passwordElement.value;
       }
     }
-    // if (ValidationUtils.validateForm(this.validation)) {
-    //   const signUpResult = await AuthService.signUp({
-    //     name: this.nameElement.value,
-    //     lastName: this.lastNameElement.value,
-    //     email: this.emailElement.value,
-    //     password: this.passwordElement.value,
-    //   });
-
-    //   console.log(signUpResult);
-
-    //   if (signUpResult) {
-    //     AuthUtils.setAuthInfo(
-    //       signUpResult.accessToken,
-    //       signUpResult.refreshToken,
-    //       {
-    //         id: signUpResult.id,
-    //         name: signUpResult.name,
-    //       },
-    //     );
-    //     this.openNewRoute("/");
-    //   }
-    //   this.commonErrorElement.style.display = "block";
-    // }
     if (ValidationUtils.validateForm(this.validation)) {
-        window.location.href="#/"
-    } else {
-        this.commonErrorElement.style.display = "block";
+      const signUpResult = await AuthService.signUp({
+        name: this.nameElement.value,
+        lastName: this.lastNameElement.value,
+        email: this.emailElement.value,
+        password: this.passwordElement.value,
+        passwordRepeat: this.passwordRepeatElement.value,
+      });
+
+      console.log(signUpResult);
+
+      if (signUpResult) {
+        window.location.href = "#/login";
+        return;
+      }
+      this.commonErrorElement.style.display = "block";
     }
   }
 }

@@ -10,6 +10,8 @@ import { MainChart } from "./components/main-chart.js";
 import { SingUp } from "./components/sing-up.js";
 import { OperationsEdit } from "./components/operations-edit.js";
 import { OperationsCreate } from "./components/operations-create.js";
+import { Logout } from "./components/logout.js";
+import { AuthUtils } from "./utils/auth-utils.js";
 
 export class Router {
   constructor() {
@@ -33,6 +35,7 @@ export class Router {
         title: "Страница не найдена",
         template: "templates/404.html",
         useLayout: false,
+        load: () => {},
       },
       {
         route: "#/login",
@@ -54,8 +57,9 @@ export class Router {
       },
       {
         route: "#/logout",
+        useLayout: false,
         load: () => {
-          //new Logout();
+          new Logout();
         },
       },
 
@@ -150,17 +154,12 @@ export class Router {
 
   async openRout() {
     const urlRout = window.location.hash.split("?")[0];
-    // if (urlRout === "#/logout") {
-    //   Auth.logout();
-    //   location.href = "#/";
-    //   return;
-    // }
 
     const newRout = this.routes.find((item) => {
       return item.route === urlRout;
     });
     if (!newRout) {
-      window.location.href = "#/";
+      window.location.href = "#/login";
       return;
     }
 
@@ -185,10 +184,15 @@ export class Router {
           .addEventListener("click", (e) => {});
 
         document.getElementById("exit").addEventListener("click", () => {
-          debugger;
-          window.location.href = "#/login";
-          debugger;
+          window.location.href = "#/logout";
         });
+        const userInfo = JSON.parse(AuthUtils.getAuthInfo("userInfo"));
+        if (!userInfo) {
+          window.location.href = "#/login";
+        } else if (userInfo.name && userInfo.lastName) {
+          document.getElementById("user-name").innerText =
+            userInfo.name + " " + userInfo.lastName;
+        }
       }
       contentBlock.innerHTML = await fetch(newRout.template).then((response) =>
         response.text(),
@@ -245,7 +249,6 @@ export class Router {
           item.classList.remove("text-primary-emphasis");
           item.classList.add("bg-primary");
         } else {
-      
         }
         if (
           route.route.includes("#/income") ||
