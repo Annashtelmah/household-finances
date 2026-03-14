@@ -11,14 +11,14 @@ export class HttpUtils {
       method: method,
       headers: {
         "Content-type": "application/json",
-        Accept: "application/json",
+        Accept: "*/*",
       },
     };
     let token = null;
     if (useAuth) {
       token = AuthUtils.getAuthInfo(AuthUtils.accessTokenKey);
       if (token) {
-        params.headers["authorization"] = token;
+        params.headers["x-auth-token"] = token;
       }
     }
     if (body) {

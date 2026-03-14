@@ -5,8 +5,11 @@
   </div>
 
   <div class="container px-2 mx-1 pt-3 mt-1">
-    <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-3">
-      <div class="col">
+    <div
+      class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-3"
+      id="container-cards"
+    >
+      <!-- <div class="col">
         <div class="card rounded-3">
           <div class="card-body">
             <div class="card-title mb-2 mt-1 fs-3 text fw-medium">
@@ -27,69 +30,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="card rounded-3">
-          <div class="card-body">
-            <div class="card-title mb-2 mt-1 fs-3 text fw-medium">
-              Сбережения
-            </div>
-            <div class="d-flex mb-1 align-items-center">
-              <button type="button" class="income-edit btn btn-lg btn-primary fs-14">
-                Редактировать
-              </button>
-              <button
-                type="button"
-                class="btn btn-lg btn-danger ms-2 fs-14"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
-                Удалить
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card rounded-3">
-          <div class="card-body">
-            <div class="card-title mb-2 mt-1 fs-3 text fw-medium">Зарплата</div>
-            <div class="d-flex mb-1 align-items-center">
-              <button type="button" class="income-edit btn btn-lg btn-primary fs-14">
-                Редактировать
-              </button>
-              <button
-                type="button"
-                class="btn btn-lg btn-danger ms-2 fs-14"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
-                Удалить
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card rounded-3">
-          <div class="card-body">
-            <div class="card-title mb-2 mt-1 fs-3 text fw-medium">Депозиты</div>
-            <div class="d-flex mb-1 align-items-center">
-              <button type="button" class="income-edit btn btn-lg btn-primary fs-14">
-                Редактировать
-              </button>
-              <button
-                type="button"
-                class="btn btn-lg btn-danger ms-2 fs-14"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
-                Удалить
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      </div> -->
+      <!--      
       <div class="col">
         <div class="card rounded-3 h-100">
           <div class="card-body">
@@ -101,7 +43,7 @@
             </a>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="offset-y"></div>
@@ -119,6 +61,7 @@
   <div class="h-100 d-flex justify-content-center align-items-center">
     <div class="modal-dialog">
       <div class="modal-content">
+         <input type="hidden" name="element_id" id="delete-modal-input"/>
         <div class="modal-body px-4 pt-4 pb-1 m-3">
           Вы действительно хотите удалить категорию? Связанные доходы останутся
           без категории.
@@ -126,7 +69,7 @@
         <div
           class="modal-footer justify-content-center gap-2 pt-0 mx-3 px-4 mb-3 pb-4 border-0"
         >
-          <button type="button" class="btn btn-lg btn-success rounded-2 fs-14">
+          <button id="delete" type="button" class="btn btn-lg btn-success rounded-2 fs-14">
             Да, удалить
           </button>
           <button

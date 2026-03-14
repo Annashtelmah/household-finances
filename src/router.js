@@ -141,7 +141,7 @@ export class Router {
         },
       },
       {
-        route: "#/expenses/cteate",
+        route: "#/expenses/create",
         title: "Категории расходов",
         template: "templates/expenses-create.html",
         useLayout: "/templates/layout.html",

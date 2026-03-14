@@ -15,7 +15,7 @@ export class ValidationUtils {
   }
 
   static validateFilds(element, options) {
-    let condition = element.value;
+    let condition = element.value.trim();
     if (options) {
       if (options.hasOwnProperty("pattern")) {
         condition = element.value && element.value.match(options.pattern);
