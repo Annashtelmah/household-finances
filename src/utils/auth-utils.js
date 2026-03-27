@@ -40,11 +40,11 @@ export class AuthUtils {
     let result = false;
     const refreshToken = this.getAuthInfo(this.refreshTokenKey);
     if (refreshToken) {
-      const response = await fetch("http://localhost:3000/refresh", {
+      const response = await fetch("http://localhost:3000/api/refresh", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
-          Accept: "application/json",
+          Accept: "*/*",
         },
         body: JSON.stringify({
           refreshToken: refreshToken,
@@ -53,12 +53,15 @@ export class AuthUtils {
       if (response && response.status === 200) {
         const tokens = await response.json();
         if (tokens && !tokens.error) {
-          this.setAuthInfo(tokens.tokens.accessToken, tokens.tokens.refreshToken);
+          this.setAuthInfo(
+            tokens.tokens.accessToken,
+            tokens.tokens.refreshToken,
+          );
         }
-        result=true;
+        result = true;
       }
     }
-      if(!result){
+    if (!result) {
       this.removeAuthInfo();
     }
     return result;

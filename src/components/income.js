@@ -21,7 +21,7 @@ export class Income {
     document.querySelectorAll(".btn-delete").forEach(function (element) {
       element.addEventListener("click", function () {
         let id = this.getAttribute("data-id");
-        debugger;
+     
         document.getElementById("delete-modal-input").value = id;
 
         //$('#deleteModal').modal('show');

@@ -2,7 +2,7 @@ import { DOMElementUtils } from "../utils/DOMElement-utils.js";
 import { HttpUtils } from "../utils/http-utils.js";
 export class Expenses {
   constructor() {
-    debugger;
+
     this.hiddenElement = document.getElementById("delete-modal-input");
     document
       .getElementById("delete")

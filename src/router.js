@@ -12,6 +12,7 @@ import { OperationsEdit } from "./components/operations-edit.js";
 import { OperationsCreate } from "./components/operations-create.js";
 import { Logout } from "./components/logout.js";
 import { AuthUtils } from "./utils/auth-utils.js";
+import { BalanceService } from "./services/balance-servis.js";
 
 export class Router {
   constructor() {
@@ -193,6 +194,9 @@ export class Router {
           document.getElementById("user-name").innerText =
             userInfo.name + " " + userInfo.lastName;
         }
+
+        //запрос баланса
+        document.getElementById("balans").innerText= (await BalanceService.getBalance())+"$";
       }
       contentBlock.innerHTML = await fetch(newRout.template).then((response) =>
         response.text(),

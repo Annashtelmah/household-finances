@@ -37,14 +37,15 @@ export class HttpUtils {
       if (useAuth && response.status === 401) {
         if (!token) {
           //1-токена нет
-          result.redirect = "/login";
+          window.location.href = "#/login";
         } else {
           //2-токен устарел
           const updateTokinResult = await AuthUtils.updateRefreshToken();
+          console.log("РефрешТокен= "+updateTokinResult);
           if (updateTokinResult) {
             return this.request(url, method, useAuth, body);
           } else {
-            result.redirect = "/login";
+            window.location.href = "#/login";
           }
         }
       }

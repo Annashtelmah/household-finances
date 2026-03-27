@@ -2,8 +2,8 @@ import { AuthService } from "../services/auth-service";
 import { AuthUtils } from "../utils/auth-utils";
 
 export class Logout {
-  constructor(openNewRoute) {
-    this.openNewRoute = openNewRoute;
+  constructor() {
+
     if (
       !AuthUtils.getAuthInfo(AuthUtils.accessTokenKey) ||
       !AuthUtils.getAuthInfo(AuthUtils.refreshTokenKey)

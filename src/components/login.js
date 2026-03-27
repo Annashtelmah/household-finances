@@ -41,6 +41,7 @@ export class Login {
       });
 
       if (loginResult) {
+        
         AuthUtils.setAuthInfo(
           loginResult.tokens.accessToken,
           loginResult.tokens.refreshToken,
@@ -55,10 +56,5 @@ export class Login {
       this.commonErrorElement.style.display = "block";
     }
 
-    // if (ValidationUtils.validateForm(this.validation)) {
-    //   window.location.href="#/"
-    // }else{
-    //    this.commonErrorElement.style.display = "block";
-    // }
   }
 }
