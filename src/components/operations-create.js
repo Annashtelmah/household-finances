@@ -64,7 +64,6 @@ export class OperationsCreate {
           : " ",
         category_id: +this.inputCategoryElement.value,
       };
-      console.log(body);
 
       const response = await HttpUtils.request(
         "/operations",
@@ -73,7 +72,6 @@ export class OperationsCreate {
         body,
       );
       if (response.error) {
-        console.log(response.response.error);
         alert("Ошибка сохранения операции");
       } else {
         document.getElementById("balans").innerText =

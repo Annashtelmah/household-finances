@@ -120,7 +120,6 @@ export class OperationsEdit {
           true,
           newOperation,
         );
-        console.log(response);
         if (response.error) {
           return alert("Ошибка редактирования операции!");
         }

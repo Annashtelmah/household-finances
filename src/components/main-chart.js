@@ -95,7 +95,6 @@ export class MainChart {
           : null;
         break;
       default:
-        console.log("Фильтр не задан");
         return;
     }
 
@@ -162,10 +161,7 @@ export class MainChart {
       values2.push(100);
       backgroundColor2.push("#cfcaca");
     }
-    console.log(labels2);
-    console.log(values2);
-    console.log(backgroundColor2);
-    debugger;
+ 
     CommonUtils.drawChart(
       "chart2",
       labels2,

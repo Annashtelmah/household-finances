@@ -41,7 +41,6 @@ export class HttpUtils {
         } else {
           //2-токен устарел
           const updateTokinResult = await AuthUtils.updateRefreshToken();
-          console.log("РефрешТокен= "+updateTokinResult);
           if (updateTokinResult) {
             return this.request(url, method, useAuth, body);
           } else {

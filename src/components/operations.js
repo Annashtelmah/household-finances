@@ -56,15 +56,6 @@ export class Operations {
     const dataFrom = new Date().toISOString().split("T")[0];
     const dataTo = new Date().toISOString().split("T")[0];
     await this.showOperationsWithFilter(dataFrom, dataTo);
-
-    // document.querySelectorAll(".btn-delete").forEach(function (element) {
-    //   element.addEventListener("click", function () {
-    //     let id = this.getAttribute("data-id");
-    //     console.log(id);
-    //     debugger;
-    //    document.getElementById("delete-modal-input").value = id;
-    //   });
-    // });
   }
 
   clearStuleButtons() {
@@ -115,7 +106,6 @@ export class Operations {
           : null;
         break;
       default:
-        console.log("Фильтр не задан");
         return;
     }
 
@@ -170,7 +160,6 @@ export class Operations {
       deleteLink.setAttribute("data-id", operation.id);
       deleteLink.addEventListener("click", function () {
         let id = this.getAttribute("data-id");
-        console.log(id);
 
         document.getElementById("delete-modal-input").value = id;
       });
@@ -198,7 +187,6 @@ export class Operations {
   }
 
   async deleteOperation() {
-    console.log(this.hiddenElement.value);
     const response = await HttpUtils.request(
       "/operations/" + this.hiddenElement.value,
       "DELETE",

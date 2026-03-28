@@ -9,7 +9,7 @@ export class BalanceService {
       !result.response ||
       (result.response && !result.response.balance)) 
       {
-      return false;
+      return 0;
     }
     return result.response.balance;
   }

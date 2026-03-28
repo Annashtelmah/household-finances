@@ -220,7 +220,6 @@ export class Router {
     if (newRout.load && typeof newRout.load === "function") {
       newRout.load();
     } else {
-      console.log("no route find");
       window.location.href = "#/";
     }
   }
