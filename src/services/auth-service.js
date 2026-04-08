@@ -19,7 +19,6 @@ export class AuthService {
   }
 
   static async signUp(data) {
-    console.log(data);
     const result = await HttpUtils.request("/signup", "POST", false, data);
     if (
       result.error ||

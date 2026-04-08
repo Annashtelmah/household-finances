@@ -11,14 +11,14 @@ export class HttpUtils {
       method: method,
       headers: {
         "Content-type": "application/json",
-        Accept: "application/json",
+        Accept: "*/*",
       },
     };
     let token = null;
     if (useAuth) {
       token = AuthUtils.getAuthInfo(AuthUtils.accessTokenKey);
       if (token) {
-        params.headers["authorization"] = token;
+        params.headers["x-auth-token"] = token;
       }
     }
     if (body) {
@@ -37,14 +37,14 @@ export class HttpUtils {
       if (useAuth && response.status === 401) {
         if (!token) {
           //1-токена нет
-          result.redirect = "/login";
+          window.location.href = "#/login";
         } else {
           //2-токен устарел
           const updateTokinResult = await AuthUtils.updateRefreshToken();
           if (updateTokinResult) {
             return this.request(url, method, useAuth, body);
           } else {
-            result.redirect = "/login";
+            window.location.href = "#/login";
           }
         }
       }

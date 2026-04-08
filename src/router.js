@@ -12,6 +12,7 @@ import { OperationsEdit } from "./components/operations-edit.js";
 import { OperationsCreate } from "./components/operations-create.js";
 import { Logout } from "./components/logout.js";
 import { AuthUtils } from "./utils/auth-utils.js";
+import { BalanceService } from "./services/balance-servis.js";
 
 export class Router {
   constructor() {
@@ -141,7 +142,7 @@ export class Router {
         },
       },
       {
-        route: "#/expenses/cteate",
+        route: "#/expenses/create",
         title: "Категории расходов",
         template: "templates/expenses-create.html",
         useLayout: "/templates/layout.html",
@@ -193,6 +194,9 @@ export class Router {
           document.getElementById("user-name").innerText =
             userInfo.name + " " + userInfo.lastName;
         }
+
+        //запрос баланса
+        document.getElementById("balans").innerText= (await BalanceService.getBalance())+"$";
       }
       contentBlock.innerHTML = await fetch(newRout.template).then((response) =>
         response.text(),
@@ -216,7 +220,6 @@ export class Router {
     if (newRout.load && typeof newRout.load === "function") {
       newRout.load();
     } else {
-      console.log("no route find");
       window.location.href = "#/";
     }
   }

@@ -1,13 +1,19 @@
+import { BalanceService } from "../services/balance-servis.js";
 import { CommonUtils } from "../utils/common-utils.js";
+import { HttpUtils } from "../utils/http-utils.js";
 import { UrlUtils } from "../utils/url-utils.js";
 import { ValidationUtils } from "../utils/validation-utils.js";
 
 export class OperationsEdit {
   constructor() {
-    const idOperation = UrlUtils.getUrlParam("typeoperation");
+    this.id = UrlUtils.getUrlParam("id");
     this.inputTypeElement = document.getElementById("inputType");
     this.inputCategoryElement = document.getElementById("inputCategory");
-    this.init();
+    this.inputAmountElment = document.getElementById("inputAmount");
+    this.dateInputElement = document.getElementById("dateInput");
+    this.inputCommentElement = document.getElementById("inputComment");
+
+    this.init(this.id);
 
     $("#dateInput").datepicker({
       format: "dd.mm.yyyy",
@@ -18,92 +24,110 @@ export class OperationsEdit {
       window.location.href = "#/operations";
     });
 
-    document.getElementById("save").addEventListener("click", () => {
-      ValidationUtils.validateForm([
-        {
-          element: document.getElementById("summa"),
-          options: {
-            pattern: /^-?\d+(?:\.\d+)?$/,
-          },
-        },
-        { element: document.getElementById("dateInput") },
-      ]);
-    });
+    document
+      .getElementById("save")
+      .addEventListener("click", this.saveOperation.bind(this));
   }
 
-  async init() {
+  async init(id) {
     // получаем с сервера операцию по id
-    let response = {
-      type: "income",
-      amount: 250,
-      date: "2022-01-01",
-      comment: "",
-      category_id: 3,
-    };
-    //
-
-    //получаем категории
-    this.arrayCategoryIncomme = [
-      { id: 1, title: "зарплата" },
-      { id: 2, title: "Инвестиции" },
-      { id: 3, title: "Сбережения" },
-      { id: 4, title: "Депозиты" },
-    ];
-    this.arrayCategoryExpenses = [
-      { id: 1, title: "Еда" },
-      { id: 2, title: "Жилье" },
-      { id: 3, title: "Спорт" },
-      { id: 4, title: "Одежда" },
-      { id: 5, title: "Подарки" },
-      { id: 6, title: "Авто" },
-      { id: 7, title: "Кафе" },
-      { id: 8, title: "Развлечения" },
-    ];
-    //
-    for (let i = 0; i < this.inputTypeElement.options.length; i++) {
-      if (this.inputTypeElement.options[i].value === response.type) {
-        this.inputTypeElement.selectedIndex = i;
-        this.selectedValue = this.inputTypeElement.options[i].value;
+    const response = await HttpUtils.request("/operations/" + id);
+    if (!response.error && response.response && response.response.id) {
+      this.oldOperation = {
+        type: response.response.type,
+        amount: +response.response.amount,
+        date: response.response.date,
+        comment: response.response.comment,
+      };
+      for (let i = 0; i < this.inputTypeElement.options.length; i++) {
+        if (this.inputTypeElement.options[i].value === response.response.type) {
+          this.inputTypeElement.selectedIndex = i;
+          this.selectedValue = this.inputTypeElement.options[i].value;
+        }
       }
-    }
-    this.buildCategory();
-    for (let i = 0; i < this.inputCategoryElement.options.length; i++) {
-      console.log(this.inputCategoryElement.options[i].value);
-      console.log(response.category_id);
-      if (
-        Number(this.inputCategoryElement.options[i].value) ===
-        response.category_id
-      ) {
-        this.inputCategoryElement.selectedIndex = i;
+      await this.buildCategory();
+      for (let i = 0; i < this.inputCategoryElement.options.length; i++) {
+        if (
+          this.inputCategoryElement.options[i].innerText ===
+          response.response.category
+        ) {
+          this.oldOperation.category_id =
+            +this.inputCategoryElement.options[i].value;
+          this.inputCategoryElement.selectedIndex = i;
+        }
       }
+      this.inputAmountElment.value = response.response.amount;
+      this.inputCommentElement.value = response.response.comment
+        ? response.response.comment
+        : " ";
+      this.dateInputElement.value = new Date(
+        response.response.date,
+      ).toLocaleDateString("ru-RU");
+      this.inputTypeElement.addEventListener(
+        "change",
+        this.buildCategory.bind(this),
+      );
+    } else {
+      alert("Ошибка! Опреация для редактирования не найдена!");
     }
-    document.getElementById("summa").value = response.amount;
-    document.getElementById("comment").value = response.comment
-      ? response.comment
-      : "";
-document.getElementById("dateInput").value= new Date(response.date).toLocaleDateString("ru-RU");
-    this.inputTypeElement.addEventListener(
-      "change",
-      this.buildCategory.bind(this),
-    );
   }
 
-  buildCategory() {
+  async buildCategory() {
     this.selectedValue = this.inputTypeElement.value;
     CommonUtils.clearOptionForSelect(this.inputCategoryElement);
     if (this.selectedValue === "income") {
       CommonUtils.createOptionForSelect(
         this.inputCategoryElement,
-        this.arrayCategoryIncomme,
+        await CommonUtils.getCaregories("income"),
       );
     } else if (this.selectedValue === "expense") {
       CommonUtils.createOptionForSelect(
         this.inputCategoryElement,
-        this.arrayCategoryExpenses,
+        await CommonUtils.getCaregories("expense"),
       );
     } else {
       alert("Не выбран тип операции!");
     }
-       CommonUtils.changeActivMemu(this.selectedValue);
+    CommonUtils.changeActivMemu(this.selectedValue);
+  }
+
+  async saveOperation() {
+    if (
+      ValidationUtils.validateForm([
+        {
+          element: this.inputAmountElment,
+          options: {
+            pattern: /^-?\d+(?:\.\d+)?$/,
+          },
+        },
+        { element: this.dateInputElement },
+      ])
+    ) {
+      const newOperation = {
+        type: this.inputTypeElement.value,
+        amount: +this.inputAmountElment.value,
+        date: CommonUtils.convertDate2(this.dateInputElement.value),
+        comment: this.inputCommentElement.value,
+        category_id: +this.inputCategoryElement.value,
+      };
+
+      if (
+        !(JSON.stringify(newOperation) === JSON.stringify(this.oldOperation))
+      ) {
+        const response = await HttpUtils.request(
+          "/operations/" + this.id,
+          "PUT",
+          true,
+          newOperation,
+        );
+        if (response.error) {
+          return alert("Ошибка редактирования операции!");
+        }
+      }
+      
+      document.getElementById("balans").innerText =
+        (await BalanceService.getBalance()) + "$";
+      window.location.href = "#/operations";
+    }
   }
 }

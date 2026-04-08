@@ -61,7 +61,6 @@ export class SingUp {
         passwordRepeat: this.passwordRepeatElement.value,
       });
 
-      console.log(signUpResult);
 
       if (signUpResult) {
         window.location.href = "#/login";

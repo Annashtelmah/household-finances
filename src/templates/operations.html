@@ -40,7 +40,11 @@
     <button class="btn btn-outline-secondary px-2 fw-medium" type="button">
       все
     </button>
-    <button class="btn btn-outline-secondary px-2 fw-medium" type="button">
+    <button
+      class="btn btn-outline-secondary px-2 fw-medium"
+      type="button"
+      id="intervalButton"
+    >
       Интервал
     </button>
 
@@ -76,8 +80,8 @@
           <th scope="col"></th>
         </tr>
       </thead>
-      <tbody>
-        <tr class="">
+      <tbody id="table-container">
+        <!-- <tr>
           <td>1</td>
           <td class="text-success">Доход</td>
           <td>Зарплата</td>
@@ -118,7 +122,7 @@
               <i class="bi bi-pencil"></i
             ></a>
           </td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
   </div>
@@ -138,13 +142,18 @@
   <div class="h-100 d-flex justify-content-center align-items-center">
     <div class="modal-dialog">
       <div class="modal-content">
+        <input type="hidden" name="element_id" id="delete-modal-input" />
         <div class="modal-body px-4 pt-4 pb-1 m-3">
           Вы действительно хотите удалить операцию?
         </div>
         <div
           class="modal-footer justify-content-center gap-2 pt-0 mx-3 px-4 mb-3 pb-4 border-0"
         >
-          <button type="button" class="btn btn-lg btn-success rounded-2 fs-14">
+          <button
+            id="delete"
+            type="button"
+            class="btn btn-lg btn-success rounded-2 fs-14"
+          >
             Да, удалить
           </button>
           <button
