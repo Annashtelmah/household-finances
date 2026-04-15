@@ -1,15 +1,17 @@
+import type { CategorysType} from "../types/categoty.type";
+
 export class DOMElementUtils {
-  static createCardCategoty(id, title, containerElement,type) {
-    const colDiv = document.createElement("div");
+  public static createCardCategoty(id:string, title:string, containerElement:HTMLElement,type:CategorysType):void {
+    const colDiv:HTMLElement = document.createElement("div");
     colDiv.classList.add("col");
 
-    const cardDiv = document.createElement("div");
+    const cardDiv:HTMLElement = document.createElement("div");
     cardDiv.classList.add("card", "rounded-3");
 
-    const bodyDiv = document.createElement("div");
+    const bodyDiv:HTMLElement = document.createElement("div");
     bodyDiv.classList.add("card-body");
 
-    const titleDiv = document.createElement("div");
+    const titleDiv:HTMLElement = document.createElement("div");
     titleDiv.classList.add(
       "card-title",
       "mb-2",
@@ -20,10 +22,10 @@ export class DOMElementUtils {
     );
     titleDiv.textContent = title;
 
-    const flexDiv = document.createElement("div");
+    const flexDiv:HTMLElement = document.createElement("div");
     flexDiv.classList.add("d-flex", "mb-1", "align-items-center");
 
-    const editButton = document.createElement("a");
+    const editButton:HTMLAnchorElement = document.createElement("a");
     editButton.href = "#/"+type+"/edit?id=" + id;
     editButton.classList.add(
       "btn",
@@ -33,7 +35,7 @@ export class DOMElementUtils {
     );
     editButton.textContent = "Редактировать";
 
-    const deleteButton = document.createElement("a");
+    const deleteButton:HTMLElement = document.createElement("a");
     deleteButton.classList.add("btn", "btn-lg", "btn-danger", "ms-2", "fs-14","btn-delete");
     deleteButton.setAttribute("data-id",id);
     deleteButton.dataset.bsToggle = "modal";
@@ -52,17 +54,17 @@ export class DOMElementUtils {
     containerElement.appendChild(colDiv);
   }
 
-  static createEmptyCard(containerElement,type) {
-    const colDiv = document.createElement("div");
+  public static createEmptyCard(containerElement:HTMLElement,type:CategorysType) {
+    const colDiv:HTMLElement = document.createElement("div");
     colDiv.classList.add("col");
 
-    const cardDiv = document.createElement("div");
+    const cardDiv:HTMLElement = document.createElement("div");
     cardDiv.classList.add("card", "rounded-3", "h-100");
 
-    const bodyDiv = document.createElement("div");
+    const bodyDiv:HTMLElement = document.createElement("div");
     bodyDiv.classList.add("card-body");
 
-    const createButton = document.createElement("a");
+    const createButton:HTMLAnchorElement = document.createElement("a");
 
     createButton.href = "#/"+type+"/create";
     createButton.classList.add(
@@ -73,7 +75,7 @@ export class DOMElementUtils {
       "h-100",
     );
 
-    const icon = document.createElement("i");
+    const icon:HTMLElement = document.createElement("i");
     icon.classList.add("bi", "bi-plus-lg", "text-black-50");
     createButton.appendChild(icon);
     bodyDiv.appendChild(createButton);

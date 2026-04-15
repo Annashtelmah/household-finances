@@ -1,13 +1,16 @@
+import { MethodType, type ParamsRequestType } from "../types/params-request.type";
+import type { ResultRequestType } from "../types/result-request.type";
 import { AuthUtils } from "./auth-utils";
 
 export class HttpUtils {
-  static async request(url, method = "GET", useAuth = true, body = null) {
-    const result = {
+
+  public static async request(url:string, method:MethodType= MethodType.GET, useAuth:boolean = true, body:any = null):Promise<ResultRequestType> {
+    const result:ResultRequestType = {
       error: false,
-      response: null,
+      response: [],
     };
 
-    const params = {
+    const params:ParamsRequestType = {
       method: method,
       headers: {
         "Content-type": "application/json",
@@ -18,13 +21,13 @@ export class HttpUtils {
     if (useAuth) {
       token = AuthUtils.getAuthInfo(AuthUtils.accessTokenKey);
       if (token) {
-        params.headers["x-auth-token"] = token;
+        params.headers["x-auth-token"] = token.toString();
       }
     }
     if (body) {
       params.body = JSON.stringify(body);
     }
-    let response = null;
+    let response:Response|null = null;
     try {
       response = await fetch("http://localhost:3000/api" + url, params);
       result.response = await response.json();
@@ -40,7 +43,7 @@ export class HttpUtils {
           window.location.href = "#/login";
         } else {
           //2-токен устарел
-          const updateTokinResult = await AuthUtils.updateRefreshToken();
+          const updateTokinResult:boolean = await AuthUtils.updateRefreshToken();
           if (updateTokinResult) {
             return this.request(url, method, useAuth, body);
           } else {

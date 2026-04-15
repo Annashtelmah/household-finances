@@ -1,34 +1,45 @@
-import Chart from "chart.js/auto";
+import Chart, { elements } from "chart.js/auto";
 import { CommonUtils } from "../utils/common-utils";
 import { HttpUtils } from "../utils/http-utils";
+import type { ResultRequestType } from "../types/result-request.type";
+import type { ResponseOperationType } from "../types/operations.type";
+import type { ChartParamsType } from "../types/charts-params.type";
 
 export class MainChart {
+  private dateInputFromElement: HTMLInputElement | null = null;
+  private dateInputToElement: HTMLInputElement | null = null;
+  private buttons: NodeListOf<HTMLElement> | null = null;
+
   constructor() {
-    $("#dateInputFrom")
+    (<any>$("#dateInputFrom"))
       .datepicker({
         format: "dd.mm.yyyy",
         language: "ru",
       })
-      .on("changeDate", function (e) {
+      .on("changeDate", (e: any) => {
         $(this).css("width", "120px");
         $("#intervalButton").trigger("click");
       });
-    $("#dateInputTo")
+    (<any>$("#dateInputTo"))
       .datepicker({
         format: "dd.mm.yyyy",
         language: "ru",
       })
-      .on("changeDate", function (e) {
+      .on("changeDate", (e: any) => {
         $(this).css("width", "120px");
         $("#intervalButton").trigger("click");
       });
 
-    this.dateInputFromElement = document.getElementById("dateInputFrom");
-    this.dateInputToElement = document.getElementById("dateInputTo");
+    this.dateInputFromElement = document.getElementById(
+      "dateInputFrom",
+    ) as HTMLInputElement;
+    this.dateInputToElement = document.getElementById(
+      "dateInputTo",
+    ) as HTMLInputElement;
     this.buttons = document.querySelectorAll(".buttons-filter button");
 
-    this.buttons.forEach((button) => {
-      button.addEventListener("click", (e) =>
+    this.buttons.forEach((button: HTMLElement) => {
+      button.addEventListener("click", (e: any) =>
         this.handlePeriodClick(e.target.textContent, e.target),
       );
     });
@@ -41,21 +52,25 @@ export class MainChart {
     // });
   }
 
-  async init() {
-    const dataFrom = new Date().toISOString().split("T")[0];
-    const dataTo = new Date().toISOString().split("T")[0];
-    await this.showChartsWithFilter(dataFrom, dataTo);
+  private async init(): Promise<void> {
+    const dataFrom: string | undefined = new Date().toISOString().split("T")[0];
+    const dataTo: string | undefined = new Date().toISOString().split("T")[0];
+    if (dataFrom && dataTo) {
+      await this.showChartsWithFilter(dataFrom, dataTo);
+    }
   }
 
-  clearStuleButtons() {
-    this.buttons.forEach((button) => {
-      button.classList.remove("btn-secondary");
-      button.classList.add("btn-outline-secondary");
-    });
+  private clearStuleButtons(): void {
+    if (this.buttons) {
+      this.buttons.forEach((button: HTMLElement) => {
+        button.classList.remove("btn-secondary");
+        button.classList.add("btn-outline-secondary");
+      });
+    }
   }
 
-  handlePeriodClick(periodText, obj) {
-    let startDate, endDate;
+  private handlePeriodClick(periodText: string, obj: HTMLElement) {
+    let startDate: string | null, endDate: string | null;
     this.clearStuleButtons();
     obj.classList.remove("btn-outline-secondary");
     obj.classList.add("btn-secondary");
@@ -87,11 +102,11 @@ export class MainChart {
         endDate = new Date().toLocaleString();
         break;
       case "интервал":
-        startDate = this.dateInputFromElement.value
-          ? this.dateInputFromElement.value
+        startDate = (this.dateInputFromElement as HTMLInputElement).value
+          ? (this.dateInputFromElement as HTMLInputElement).value
           : null;
-        endDate = this.dateInputToElement.value
-          ? this.dateInputToElement.value
+        endDate = (this.dateInputToElement as HTMLInputElement).value
+          ? (this.dateInputToElement as HTMLInputElement).value
           : null;
         break;
       default:
@@ -100,28 +115,31 @@ export class MainChart {
 
     if (startDate && endDate) {
       this.showChartsWithFilter(
-        CommonUtils.convertDate2(startDate),
-        CommonUtils.convertDate2(endDate),
+        CommonUtils.convertDate2(startDate) as string,
+        CommonUtils.convertDate2(endDate) as string,
       );
     } else {
       alert("Установите дату С и дату ПО!");
     }
   }
 
-  async showChartsWithFilter(dataFrom, dataTo) {
-    let labels1 = [];
-    let values1 = [];
-    let backgroundColor1 = [];
-    let labels2 = [];
-    let values2 = [];
-    let backgroundColor2 = [];
-    let operationObj = {};
+  private async showChartsWithFilter(dataFrom:string, dataTo:string):Promise<void> {
+    let labels1:string[] = [];
+    let values1:number[] = [];
+    let backgroundColor1:string[] = [];
+    let labels2:string[]= [];
+    let values2:number[] = [];
+    let backgroundColor2:string[] = [];
+    let operationObj:ChartParamsType = {
+      labelsArray:[],
+      valuesArray:[]
+    };
 
-    const response = await HttpUtils.request(
+    const response:ResultRequestType = await HttpUtils.request(
       "/operations?period=interval&dateFrom=" + dataFrom + "&dateTo=" + dataTo,
     );
-    if (!response.error && response.response && response.response.length > 0) {
-      response.response.forEach((operation) => {
+    if (!response.error && response.response && (response.response as Array<ResponseOperationType>).length > 0) {
+      (response.response  as Array<ResponseOperationType>).forEach((operation:ResponseOperationType) => {
         if (operation.type === "income") {
           let category = operation.category
             ? operation.category
@@ -161,7 +179,7 @@ export class MainChart {
       values2.push(100);
       backgroundColor2.push("#cfcaca");
     }
- 
+
     CommonUtils.drawChart(
       "chart2",
       labels2,

@@ -14,9 +14,9 @@ export class Logout {
     this.Logout();
   }
 
-  async Logout() {
+ private async Logout():Promise<void> {
     await AuthService.logOut({
-      refreshToken: AuthUtils.getAuthInfo(AuthUtils.refreshTokenKey),
+      refreshToken: AuthUtils.getAuthInfo(AuthUtils.refreshTokenKey) as string
     });
 
     AuthUtils.removeAuthInfo();

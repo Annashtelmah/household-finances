@@ -1,11 +1,16 @@
+import type {
+  ValidationOptionsType,
+  ValidationType,
+} from "../types/validation.type";
+
 export class ValidationUtils {
-  static validateForm(validations) {
+  public static validateForm(validations: Array<ValidationType>): boolean {
     let isValid = true;
     for (let i = 0; i < validations.length; i++) {
       if (
         !ValidationUtils.validateFilds(
-          validations[i].element,
-          validations[i].options,
+          (validations[i] as ValidationType).element,
+          (validations[i] as ValidationType).options,
         )
       ) {
         isValid = false;
@@ -14,19 +19,19 @@ export class ValidationUtils {
     return isValid;
   }
 
-  static validateFilds(element, options) {
-    let condition = element.value.trim();
+  private static validateFilds(
+    element: HTMLInputElement,
+    options?: ValidationOptionsType,
+  ): boolean {
+    let condition: string | boolean = element.value.trim();
     if (options) {
       if (options.hasOwnProperty("pattern")) {
-        condition = element.value && element.value.match(options.pattern);
+        if (element.value && element.value.match(options.pattern)) {
+          condition = true;
+        }
       } else if (options.hasOwnProperty("compareTo")) {
         condition = element.value && element.value == options.compareTo;
       }
-      //    else if (options.hasOwnProperty("checkProperty")) {
-      //     condition = options.checkProperty;
-      //   } else if (options.hasOwnProperty("checked")) {
-      //     condition = element.checked;
-      //   }
     }
     if (condition) {
       element.classList.remove("is-invalid");

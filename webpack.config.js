@@ -7,8 +7,21 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default {
-  entry: "./src/app.js",
+  entry: "./src/app.ts",
   mode: "development",
+  devtool: 'inline-source-map',
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
   output: {
     filename: "app.js",
     path: path.resolve(__dirname, "dist"),
@@ -53,13 +66,6 @@ export default {
           to: "css",
         },
 
-        // {
-        //   from: "./node_modules/bootstrap/dist/js/bootstrap.bundle.js",
-        //   to: "js",
-        // },
-
-
-        // { from: "./node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css", to: "css" },
       ],
     }),
   ],
